@@ -1,0 +1,11 @@
+# Your own material and records stay on this machine.
+# To back them up, make your copy of this repo private and delete these lines.
+me/*
+!me/README.md
+!me/templates/
+data/*
+!data/README.md
+!data/schema.sql
+ui/dashboard.html
+
+.DS_Store

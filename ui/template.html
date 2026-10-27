@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Job Search</title>
+<style>
+  :root{
+    --bg:#f6f7f9; --surface:#ffffff; --surface2:#eef0f3;
+    --ink:#1a2029; --ink2:#4b5563; --muted:#8a93a0; --line:#e3e6ea;
+    --accent:#2563eb; --accent-soft:#dbeafe; --accent-ink:#1e40af;
+    --good:#15803d; --good-soft:#dcfce7;
+    --warn:#b45309; --warn-soft:#fef3c7;
+    --crit:#b91c1c; --crit-soft:#fee2e2;
+    --radius:12px; --shadow:0 1px 3px rgba(16,24,40,.07),0 1px 2px rgba(16,24,40,.04);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#0f1319; --surface:#171c24; --surface2:#1f2630;
+      --ink:#e7eaee; --ink2:#aab3bf; --muted:#717b88; --line:#2a323d;
+      --accent:#60a5fa; --accent-soft:#1e3a5f; --accent-ink:#9ec5ff;
+      --good:#4ade80; --good-soft:#14341f;
+      --warn:#fbbf24; --warn-soft:#3a2e10;
+      --crit:#f87171; --crit-soft:#3b1515;
+      --shadow:0 1px 3px rgba(0,0,0,.4);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#0f1319; --surface:#171c24; --surface2:#1f2630;
+    --ink:#e7eaee; --ink2:#aab3bf; --muted:#717b88; --line:#2a323d;
+    --accent:#60a5fa; --accent-soft:#1e3a5f; --accent-ink:#9ec5ff;
+    --good:#4ade80; --good-soft:#14341f;
+    --warn:#fbbf24; --warn-soft:#3a2e10;
+    --crit:#f87171; --crit-soft:#3b1515;
+    --shadow:0 1px 3px rgba(0,0,0,.4);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    padding:28px 16px 60px}
+  .wrap{max-width:1100px;margin:0 auto}
+  header.top{display:flex;flex-wrap:wrap;align-items:baseline;gap:12px;margin-bottom:20px}
+  h1{font-size:22px;margin:0;letter-spacing:-.01em}
+  .stamp{color:var(--muted);font-size:13px}
+  h2{font-size:15px;margin:34px 0 12px;color:var(--ink2);text-transform:uppercase;
+     letter-spacing:.06em;font-weight:600}
+  /* stat tiles */
+  .tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+  .tile{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:14px 16px;box-shadow:var(--shadow)}
+  .tile .n{font-size:28px;font-weight:700;letter-spacing:-.02em}
+  .tile .l{font-size:12.5px;color:var(--ink2);margin-top:2px}
+  .tile.warn .n{color:var(--warn)} .tile.good .n{color:var(--good)} .tile.accent .n{color:var(--accent)}
+  /* needs you */
+  .need{background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--warn);
+    border-radius:var(--radius);padding:12px 16px;margin-bottom:10px;box-shadow:var(--shadow)}
+  .need .k{font-size:12px;font-weight:700;color:var(--warn);text-transform:uppercase;letter-spacing:.05em}
+  .need .t{font-weight:600;margin:2px 0}
+  .need .d{color:var(--ink2);font-size:13.5px;white-space:pre-wrap}
+  .empty{color:var(--muted);background:var(--surface);border:1px dashed var(--line);
+    border-radius:var(--radius);padding:16px;text-align:center}
+  /* status bars */
+  .bars{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:16px;box-shadow:var(--shadow)}
+  .bar-row{display:grid;grid-template-columns:110px 1fr 36px;align-items:center;gap:10px;margin:7px 0}
+  .bar-row .lbl{font-size:13px;color:var(--ink2);text-align:right}
+  .bar-track{background:var(--surface2);border-radius:4px;height:18px;position:relative}
+  .bar-fill{background:var(--accent);height:100%;border-radius:4px 4px 4px 4px;min-width:2px}
+  .bar-row .val{font-size:13px;font-weight:600}
+  /* filters */
+  .filters{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:12px}
+  .filters input,.filters select{background:var(--surface);color:var(--ink);
+    border:1px solid var(--line);border-radius:8px;padding:8px 12px;font:inherit;font-size:14px}
+  .filters input{flex:1;min-width:180px}
+  /* table */
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    box-shadow:var(--shadow);overflow-x:auto}
+  table{border-collapse:collapse;width:100%;min-width:760px}
+  th{font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);
+    text-align:left;padding:12px 14px;border-bottom:1px solid var(--line);cursor:pointer;user-select:none}
+  td{padding:11px 14px;border-bottom:1px solid var(--line);vertical-align:top;font-size:14px}
+  tr:last-child td{border-bottom:none}
+  tr:hover td{background:var(--surface2)}
+  .co{font-weight:600}
+  .role{color:var(--ink2);font-size:13.5px}
+  .chip{display:inline-block;padding:2px 10px;border-radius:999px;font-size:12px;font-weight:600;
+    background:var(--surface2);color:var(--ink2);white-space:nowrap}
+  .chip.applied,.chip.offer{background:var(--good-soft);color:var(--good)}
+  .chip.ready{background:var(--accent-soft);color:var(--accent-ink)}
+  .chip.preparing,.chip.shortlisted,.chip.interviewing{background:var(--accent-soft);color:var(--accent-ink)}
+  .chip.needs_user{background:var(--warn-soft);color:var(--warn)}
+  .chip.rejected,.chip.closed,.chip.skipped{background:var(--surface2);color:var(--muted)}
+  .fit{display:inline-flex;gap:3px;align-items:center}
+  .fit i{width:8px;height:8px;border-radius:50%;background:var(--surface2);display:inline-block}
+  .fit i.on{background:var(--accent)}
+  .fit i.half{background:linear-gradient(90deg,var(--accent) 50%,var(--surface2) 50%)}
+  .fit .fv{font-size:12.5px;color:var(--ink2);margin-left:5px;font-weight:600}
+  td a{color:var(--accent);text-decoration:none}
+  td a:hover{text-decoration:underline}
+  .why{color:var(--muted);font-size:12.5px;max-width:380px}
+  /* activity */
+  .run{display:grid;grid-template-columns:150px 110px 1fr;gap:12px;padding:10px 16px;
+    border-bottom:1px solid var(--line);font-size:13.5px}
+  .run:last-child{border-bottom:none}
+  .run .at{color:var(--muted);white-space:nowrap}
+  .run .w{font-weight:600;color:var(--accent-ink)}
+  .run .warnx{color:var(--crit);font-weight:600}
+  .msg .w{color:var(--good)}
+  .toggle{margin-left:auto;background:var(--surface);border:1px solid var(--line);color:var(--ink2);
+    border-radius:8px;padding:6px 12px;font:inherit;font-size:13px;cursor:pointer}
+  @media(max-width:640px){
+    .run{grid-template-columns:1fr}
+    body{padding:16px 16px 40px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <h1>Job Search</h1>
+    <span class="stamp" id="stamp"></span>
+    <button class="toggle" id="themeBtn" type="button">Theme</button>
+  </header>
+
+  <div class="tiles" id="tiles"></div>
+
+  <h2>Needs you</h2>
+  <div id="needs"></div>
+
+  <h2>Pipeline</h2>
+  <div class="bars" id="bars"></div>
+
+  <h2 id="jobsHead">Jobs</h2>
+  <div class="filters">
+    <input id="q" type="search" placeholder="Search company, role, location…" aria-label="Search jobs">
+    <select id="fStatus" aria-label="Filter by status"><option value="">All statuses</option></select>
+    <select id="fFit" aria-label="Filter by fit">
+      <option value="">Any fit</option><option value="4.5">Fit ≥ 4.5</option>
+      <option value="4">Fit ≥ 4</option><option value="3.5">Fit ≥ 3.5</option>
+    </select>
+  </div>
+  <div class="card"><table id="jobs">
+    <thead><tr>
+      <th data-k="company">Company</th><th data-k="fit">Fit</th><th data-k="status">Status</th>
+      <th data-k="location">Location</th><th>Why / gap</th><th>Links</th>
+    </tr></thead><tbody></tbody>
+  </table></div>
+
+  <h2>Outgoing messages</h2>
+  <div class="card" id="msgs"></div>
+
+  <h2>Activity</h2>
+  <div class="card" id="runs"></div>
+</div>
+
+<script>
+const DATA = __DATA__;
+
+/* theme toggle: system by default, remembered per viewer */
+const root = document.documentElement, btn = document.getElementById('themeBtn');
+try{ const s = localStorage.getItem('jsa-theme'); if(s) root.dataset.theme = s; }catch(e){}
+btn.onclick = () => {
+  const cur = root.dataset.theme || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark':'light');
+  const next = cur === 'dark' ? 'light' : 'dark';
+  root.dataset.theme = next;
+  try{ localStorage.setItem('jsa-theme', next); }catch(e){}
+};
+
+const esc = s => (s==null?'':String(s)).replace(/[&<>"']/g, c =>
+  ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const fmtDate = s => { if(!s) return ''; const d = new Date(s.replace(' ','T') + (s.length<=19?'Z':''));
+  return isNaN(d) ? s : d.toLocaleString(undefined,{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'}); };
+
+document.getElementById('stamp').textContent = 'updated ' + fmtDate(DATA.generated_at);
+
+/* ---- stat tiles ---- */
+const jobs = DATA.jobs || [];
+const by = k => jobs.filter(j => j.status === k).length;
+const active = jobs.filter(j => !['skipped','closed','rejected'].includes(j.status)).length;
+const tiles = [
+  {n: (DATA.needs||[]).length, l:'Need you', cls:(DATA.needs||[]).length ? 'warn':''},
+  {n: active, l:'Jobs tracked', cls:''},
+  {n: by('ready') + by('preparing') + by('shortlisted'), l:'In preparation', cls:'accent'},
+  {n: by('applied'), l:'Applied', cls:'good'},
+  {n: by('interviewing') + by('offer'), l:'Interviews & offers', cls:'good'},
+];
+document.getElementById('tiles').innerHTML = tiles.map(t =>
+  `<div class="tile ${t.cls}"><div class="n">${t.n}</div><div class="l">${esc(t.l)}</div></div>`).join('');
+
+/* ---- needs you ---- */
+const needsEl = document.getElementById('needs');
+needsEl.innerHTML = (DATA.needs||[]).length ? DATA.needs.map(n => `
+  <div class="need">
+    <div class="k">⚠ ${esc(n.kind)}${n.company ? ' · '+esc(n.company):''}${n.due ? ' · due '+esc(n.due):''}</div>
+    <div class="t">${esc(n.title)}</div>
+    ${n.detail ? `<div class="d">${esc(n.detail)}</div>`:''}
+    ${n.link ? `<div><a href="${esc(n.link)}">${esc(n.link)}</a></div>`:''}
+  </div>`).join('')
+  : '<div class="empty">Nothing needs you right now ✓</div>';
+
+/* ---- pipeline bars (single hue, direct labels) ---- */
+const order = ['new','shortlisted','preparing','ready','applied','needs_user','interviewing','offer','rejected','closed','skipped'];
+const counts = order.map(s => [s, by(s)]).filter(([,n]) => n>0);
+const max = Math.max(1, ...counts.map(([,n])=>n));
+document.getElementById('bars').innerHTML = counts.map(([s,n]) => `
+  <div class="bar-row"><div class="lbl">${esc(s.replace('_',' '))}</div>
+  <div class="bar-track"><div class="bar-fill" style="width:${(n/max*100).toFixed(1)}%"></div></div>
+  <div class="val">${n}</div></div>`).join('') || '<div class="empty">No jobs yet</div>';
+
+/* ---- jobs table with filters + sort ---- */
+const tbody = document.querySelector('#jobs tbody');
+const sel = document.getElementById('fStatus');
+[...new Set(jobs.map(j=>j.status))].sort().forEach(s => sel.add(new Option(s.replace('_',' '), s)));
+let sortK = 'fit', sortDir = -1;
+
+function fitDots(f){
+  if(f==null) return '<span class="fit"><span class="fv">—</span></span>';
+  let h=''; for(let i=1;i<=5;i++){
+    h += f>=i ? '<i class="on"></i>' : (f>=i-0.5 ? '<i class="half"></i>' : '<i></i>');
+  }
+  return `<span class="fit" title="fit ${f}/5">${h}<span class="fv">${f}</span></span>`;
+}
+function render(){
+  const q = document.getElementById('q').value.toLowerCase();
+  const st = sel.value, minF = parseFloat(document.getElementById('fFit').value) || 0;
+  let rows = jobs.filter(j =>
+    (!st || j.status===st) && (j.fit==null ? !minF : j.fit>=minF) &&
+    (!q || [j.company,j.title,j.location,j.family,j.fit_why].join(' ').toLowerCase().includes(q)));
+  rows.sort((a,b)=>{ const x=a[sortK]??'', y=b[sortK]??'';
+    return (x<y?-1:x>y?1:0)*sortDir; });
+  document.getElementById('jobsHead').textContent = `Jobs (${rows.length})`;
+  tbody.innerHTML = rows.map(j => `
+    <tr>
+      <td><div class="co">${esc(j.company)}</div><div class="role">${esc(j.title)}</div></td>
+      <td>${fitDots(j.fit)}</td>
+      <td><span class="chip ${esc(j.status)}">${esc(j.status.replace('_',' '))}</span>
+          ${j.applied_at ? `<div class="role">${fmtDate(j.applied_at)}</div>`:''}</td>
+      <td>${esc(j.location||'')}${j.mode ? `<div class="role">${esc(j.mode)}</div>`:''}</td>
+      <td class="why">${esc(j.fit_why||'')}</td>
+      <td>${j.url ? `<a href="${esc(j.url)}">posting</a>`:''}
+          ${j.apply_url && j.apply_url!==j.url ? ` · <a href="${esc(j.apply_url)}">apply</a>`:''}</td>
+    </tr>`).join('') || `<tr><td colspan="6" class="empty" style="border:none">No jobs match</td></tr>`;
+}
+['q','fStatus','fFit'].forEach(id => document.getElementById(id).addEventListener('input', render));
+document.querySelectorAll('th[data-k]').forEach(th => th.onclick = () => {
+  const k = th.dataset.k; sortDir = (sortK===k) ? -sortDir : (k==='fit'?-1:1); sortK = k; render();
+});
+render();
+
+/* ---- messages ---- */
+const msgs = (DATA.messages||[]);
+document.getElementById('msgs').innerHTML = msgs.length ? msgs.map(m => `
+  <div class="run msg"><div class="at">${fmtDate(m.at)}</div>
+  <div class="w">${esc(m.channel)} ${esc(m.direction)}</div>
+  <div>${esc(m.company||m.person||'')} — ${esc(m.kind)} (${esc(m.status)})${m.body ? `<div class="why">${esc(m.body)}</div>`:''}</div></div>`).join('')
+  : '<div class="empty" style="border:none">No messages yet</div>';
+
+/* ---- runs ---- */
+document.getElementById('runs').innerHTML = (DATA.runs||[]).map(r => `
+  <div class="run"><div class="at">${fmtDate(r.started_at)}</div>
+  <div class="w">${esc(r.what)}</div>
+  <div>${esc(r.summary||'')}${r.warnings ? `<div class="warnx">⚠ ${esc(r.warnings)}</div>`:''}</div></div>`).join('')
+  || '<div class="empty" style="border:none">No runs yet</div>';
+</script>
+</body>
+</html>
