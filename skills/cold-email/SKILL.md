@@ -17,12 +17,22 @@ Work these sources each run, newest first:
 3. **Careers pages / about pages** of high-fit companies already in the ledger: many startups publish careers@/talent@/jobs@ or a founder's work email.
 4. **The posting's "job poster" on LinkedIn** — if no email is published, their LinkedIn DM is the fallback channel (that's [outreach](../outreach/SKILL.md), not this skill).
 
-**Email rules (hard):** only PUBLISHED work emails — printed in the post, JD, careers page, or company site. Never guess patterns (first.last@company), never scrape personal emails, never use lookup tools the user didn't install. If no published address exists, hand the lead to outreach for a LinkedIn note instead.
+**Email rules (hard):** by default, only PUBLISHED work emails — printed in the post, JD, careers page, or company site. Never scrape personal emails, never use lookup tools the user didn't install. If no usable address exists, hand the lead to outreach for a LinkedIn note instead.
+
+**Derived work emails** are allowed only if the user has turned them on in `me/permissions.md`. Then, for a hiring person (founder, recruiter, the team's lead) at a company worth the effort:
+- the company's pattern (first@, first.last@, …) must be evidenced by at least one real published address of a person on the same domain, or the company publishes its own careers@/jobs@ alias (use that alias as is);
+- the person must be confirmed at the company now, on their LinkedIn or the company site;
+- no paid lookup tools, no SMTP probing or "verify email" services, no personal addresses;
+- record the evidence (where the pattern came from, where the person was confirmed) in `people.notes`;
+- a bounce marks the address bad: never retry variants of it.
+
+A guessed address with no evidence is still out: guesses bounce, and bounces get the user's mail flagged as spam.
 
 ## Qualify before emailing
 
 - The role must pass the normal filters (`me/profile.md`): location, seniority in range, pay floor, not already applied, under the per-company cap.
 - Ledger first: add the job (shortlist it if the fit clears the user's bar) and the person (people table, relation 'recruiter' or 'team', email in the email column). Check `messages` so nobody is emailed twice — one thread per person, follow-ups inside it.
+- **One company, one email** until someone there replies. Two people at the same company getting near-identical mail on the same day compare notes. The exception is a person plus the company's own careers@ alias on the same email (one send, both in To).
 
 ## The email
 
@@ -37,7 +47,9 @@ Attach the resume for that role family (tailored via [resumes](../resumes/SKILL.
 
 ## Sending
 
-Send only from the user's dedicated application email — never from a current-employer account, whatever is signed in. Mechanics (connector vs. the mail site in the controlled browser, attachments, multi-account pitfalls) are in [playbooks/email.md](../../playbooks/email.md).
+Send only from the user's dedicated application email — never from a current-employer account, whatever is signed in. Mechanics (connector vs. the mail site in the controlled browser, attachments, multi-account pitfalls, scheduled sends) are in [playbooks/email.md](../../playbooks/email.md).
+
+For a batch, schedule the sends for the start of the recipients' working day, a few minutes apart, rather than sending them all at once. Keep the final text of each email in the job's or the batch's notes, so the follow-up can quote what was said.
 
 ## Review, always
 
@@ -45,13 +57,15 @@ Before sending, run the independent review ([review](../review/SKILL.md), Outrea
 
 ## After sending
 
-- `messages` row: channel 'email', direction 'out', kind 'message', status 'sent', `follow_up_due` about +4 days.
+- `messages` row: channel 'email', direction 'out', kind 'message', status 'sent' (or 'scheduled', then 'sent' once it has left), `follow_up_due` about +4 days.
+- **Check delivery a few hours later.** Bounces arrive late, and they happen even for addresses published on the company's own site. Mark the message and the person 'bounced', tell the user in the log, and find another channel (a different published address, or outreach on LinkedIn) rather than retrying variants.
 - Log counts in `data/log.md` and `runs`.
 - **Follow-up:** one, after ~4 days of silence, two lines, in the same thread. Never more than one follow-up per person.
 
 ## Pace and reputation
 
 - A daily cap, agreed with the user (around 10/day is a sane default), with varied wording — never the same body twice. Recruiters compare notes, and mail providers spam-filter bursts of near-identical mail.
+- Review the whole batch independently before any of it goes out, not just each email: the reviewer checks that wording varies across the batch and that no company appears twice.
 - Only genuinely relevant roles; one email per person, one thread.
 - If anyone replies "not interested" or asks to stop: mark `people.status` 'skipped', never email again.
 - Replies land in the tracked inbox — [inbox](../inbox/SKILL.md) routes them; interview-scheduling replies get drafted for the user per permissions.

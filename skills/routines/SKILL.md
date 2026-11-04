@@ -54,7 +54,7 @@ Nobody is watching this run: never wait for input. Put anything that needs the u
 [inbox](../inbox/SKILL.md) again, then a short summary of the day: what went out, what came in, what needs them tomorrow.
 
 ### job-search
-[job-search](../job-search/SKILL.md) on its own, for extra searches when the market is busy.
+[job-search](../job-search/SKILL.md) on its own, for extra searches when the market is busy. With the job radar set up, a daily radar run plus vetting its strong keeps is a cheap way to catch new postings within a day.
 
 ### review
 Every week or two: the results review, then the setup review, from [review](../review/SKILL.md). It ends with suggestions for the user, not changes.

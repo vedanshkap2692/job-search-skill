@@ -1,0 +1,89 @@
+# Job radar filters: an example.
+#
+# The radar reads me/radar.yaml if it exists, and this file otherwise. Copy it there and edit:
+#   cp scripts/job_radar/filters.example.yaml me/radar.yaml
+# The agent can write me/radar.yaml for you from the Targets and Filters in me/profile.md.
+# me/ is gitignored, so your filters stay on this machine.
+#
+# This example looks for early-career software, data and ML roles anywhere. Change every section.
+# Patterns are regular expressions, matched case-insensitively. Use single quotes around them.
+
+# Freshness window in days, used when the feed gives a posted date.
+days: 45
+
+# ---------------------------------------------------------------- where
+# Keep a posting when its location names one of these places. Empty list = any location.
+locations: []
+#   India:  [india, bengaluru, bangalore, hyderabad, pune, mumbai, gurugram, gurgaon, noida, chennai, delhi, kolkata]
+#   US:     ["united states", usa, "new york", "san francisco", seattle, austin, boston, chicago]
+#   UK:     ["united kingdom", uk, london, manchester, edinburgh, cambridge]
+# Country codes some feeds use in the location field, matched case-sensitively (e.g. [IN, IND] or [US, USA]).
+location_codes: []
+
+# Remote postings that list no place: keep them, but only if the JD mentions one of remote_jd_words
+# (empty = keep every remote posting). Remote postings or titles naming one of remote_exclude_words are dropped.
+remote_ok: true
+remote_jd_words: []
+remote_exclude_words: []
+#   e.g. for someone in India: remote_jd_words: [india, indian, ist, bengaluru, bangalore]
+#        remote_exclude_words: [us, usa, "united states", uk, canada, europe, emea, latam, americas]
+
+# Server-side hints for feeds that can filter by country. Leave blank to fetch everything.
+smartrecruiters_country: ""    # ISO-2, e.g. "in", "us"
+amazon_country: ""             # ISO-3, e.g. "IND", "USA"
+workday_location: ""           # appended to each Workday keyword search, e.g. "India"
+eightfold_location: ""         # e.g. "India", "United States"
+
+# Workday, amazon.jobs and Eightfold portals are searched by keyword (the other feeds list every job).
+search_queries: ["software engineer", "data scientist", "machine learning", "data engineer"]
+
+# ---------------------------------------------------------------- which roles
+# Role families, checked in order; the first match labels the posting.
+families:
+  - {name: "ML",   title: 'machine learning|\bml\b|\bmle\b|mlops|deep learning|computer vision|\bnlp\b'}
+  - {name: "AI",   title: '\bai\b|artificial intelligence|\bllm|gen ?ai|generative|\bagent(s|ic)?\b|applied scien'}
+  - {name: "DS",   title: 'data scien|decision scien|data analyst'}
+  - {name: "Data", title: 'data engineer|analytics engineer'}
+  - {name: "SWE",  title: 'software (development )?engineer|\bsde\b|\bswe\b|developer|backend|full[- ]?stack|member of technical staff'}
+
+# Broad titles kept only when the JD has at least min_jd_hits matches of jd_terms.
+# Example: an ML-focused search that still wants plain "Software Engineer" roles doing ML work —
+# move the SWE family down here instead of listing it above.
+check_jd: []
+#  - {name: "SWE (ML in JD)", title: 'software engineer|\bsde\b|developer', min_jd_hits: 4}
+jd_terms: 'machine learning|deep learning|llms?|large language model|generative ai|rag|pytorch|tensorflow|nlp|computer vision|embeddings|mlops'
+
+# Titles to drop. Tune the seniority words to your level.
+exclude_titles: >-
+  \b(senior|sr\.?|staff|principal|lead|manager|director|head|architect|vp|vice president|chief|distinguished|fellow|intern|internship|iii|iv)\b|\b(sales|account executive|recruit|marketing|legal|counsel|designer|product manager|program manager|project manager|customer success|support|client|onboarding|consult\w*|business development|finance|accountant|annotator|annotation|tutor|rater)\b
+
+# Employers to skip. Always include your current employer.
+exclude_companies: []
+
+# ---------------------------------------------------------------- experience
+# Keep a posting when the JD's required minimum is at most this many years, or none is stated.
+# "0-2 years" has minimum 0; "2+ years" has minimum 2; "2.5+ years" has 2.5. Blank = no experience filter.
+max_required_years: 2
+# For "Bachelor's + 3 years, or Master's + 1 year": the degree you hold (bachelor, master or phd).
+degree: bachelor
+
+# ---------------------------------------------------------------- fit hint
+# A sorting aid only, not a fit score: counts which of your skills the JD mentions.
+# core_terms count double. Build these from me/master_resume.md.
+fit_terms:
+  Python: '\bpython\b'
+  SQL: '\bsql\b'
+  Java: '\bjava\b'
+  TypeScript: 'typescript|\bnode\.?js\b'
+  AWS: '\baws\b'
+  Docker/K8s: 'docker|kubernetes'
+  ML: 'machine learning|\bml\b'
+  LLM: '\bllms?\b|large language model'
+  PyTorch: 'pytorch'
+  Spark: '\bspark\b'
+core_terms: [Python, SQL]
+
+# Phrases worth a second look, shown in the fit hint as "CHECK: <label>".
+flags:
+  - {label: "names a graduation year or batch", pattern: '\b20\d\d\b.{0,20}(batch|graduat)'}
+  - {label: "immediate joiners", pattern: 'immediate joiner'}

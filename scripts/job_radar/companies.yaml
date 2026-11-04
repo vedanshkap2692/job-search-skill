@@ -1,0 +1,140 @@
+# Companies the radar scans: a starter list of public job boards (verified November 2026).
+# It leans towards companies that hire in India and the US; edit it for your market and targets.
+# Run `radar.py --verify` after editing: it flags boards that moved or went dead.
+# slug = the name in the company's job-board URL:
+#   greenhouse: job-boards.greenhouse.io/<slug>   lever: jobs.lever.co/<slug>
+#   ashby: jobs.ashbyhq.com/<slug>                 smartrecruiters: jobs.smartrecruiters.com/<slug>
+#   workable: apply.workable.com/<slug>            rippling: ats.rippling.com/<slug>
+# Add a company by appending a line; remove dead ones that --verify flags.
+
+greenhouse:
+  - {slug: "razorpaysoftwareprivatelimited", name: "Razorpay"}
+  - {slug: "inmobi", name: "InMobi"}
+  - {slug: "harnessinc", name: "Harness"}
+  - {slug: "hackerrank", name: "HackerRank"}
+  - {slug: "commvault", name: "Commvault"}
+  - {slug: "gitlab", name: "GitLab"}
+  - {slug: "observeai", name: "Observe.AI"}
+  - {slug: "databricks", name: "Databricks"}
+  - {slug: "mongodb", name: "MongoDB"}
+  - {slug: "gleanwork", name: "Glean"}
+  - {slug: "coinbase", name: "Coinbase"}
+  - {slug: "elastic", name: "Elastic"}
+  - {slug: "okta", name: "Okta"}
+  - {slug: "zscaler", name: "Zscaler"}
+  - {slug: "purestorage", name: "Pure Storage"}
+  - {slug: "samsara", name: "Samsara"}
+  - {slug: "groww", name: "Groww"}
+  - {slug: "towerresearchcapital", name: "Tower Research Capital"}
+  - {slug: "imc", name: "IMC Trading"}
+  - {slug: "worldquant", name: "WorldQuant"}
+  - {slug: "highradius", name: "HighRadius"}
+  - {slug: "twilio", name: "Twilio"}
+  - {slug: "turing", name: "Turing"}
+  - {slug: "datadog", name: "Datadog"}
+  - {slug: "airbnb", name: "Airbnb"}
+  - {slug: "aqr", name: "AQR"}
+  - {slug: "point72", name: "Point72"}
+  - {slug: "rubrik", name: "Rubrik"}
+  - {slug: "adyen", name: "Adyen"}
+  - {slug: "sigmoid", name: "Sigmoid"}
+  - {slug: "jumptrading", name: "Jump Trading"}
+  - {slug: "stripe", name: "Stripe"}
+  - {slug: "druva", name: "Druva"}
+  - {slug: "togetherai", name: "Together AI"}
+  - {slug: "zetaglobal", name: "Zeta Global"}
+  - {slug: "anthropic", name: "Anthropic"}
+  - {slug: "scaleai", name: "Scale AI"}
+  - {slug: "celonis", name: "Celonis"}
+  - {slug: "agoda", name: "Agoda"}
+  - {slug: "nasdaq", name: "Nasdaq"}
+  - {slug: "grafanalabs", name: "Grafana Labs"}
+  - {slug: "cockroachlabs", name: "Cockroach Labs"}
+  - {slug: "yugabyte", name: "Yugabyte"}
+  - {slug: "singlestore", name: "SingleStore"}
+  - {slug: "starburst", name: "Starburst"}
+  - {slug: "fivetran", name: "Fivetran"}
+  - {slug: "cresta", name: "Cresta"}
+  - {slug: "devrev", name: "DevRev"}
+  - {slug: "deepintent", name: "DeepIntent"}
+  - {slug: "figma", name: "Figma"}
+
+lever:
+  - {slug: "mindtickle", name: "Mindtickle"}
+  - {slug: "meesho", name: "Meesho"}
+  - {slug: "cred", name: "CRED"}
+  - {slug: "zeta", name: "Zeta"}
+  - {slug: "paytm", name: "Paytm"}
+  - {slug: "spotify", name: "Spotify"}
+  - {slug: "100ms", name: "100ms"}
+  - {slug: "aeratechnology", name: "Aera Technology"}
+  - {slug: "fampay", name: "FamPay"}
+  - {slug: "pocketfm", name: "Pocket FM"}
+  - {slug: "linkedin", name: "LinkedIn"}
+  - {slug: "nium", name: "Nium"}
+
+ashby:
+  - {slug: "tekion", name: "Tekion"}
+  - {slug: "snowflake", name: "Snowflake"}
+  - {slug: "notion", name: "Notion"}
+  - {slug: "openai", name: "OpenAI"}
+  - {slug: "litellm", name: "LiteLLM"}
+  - {slug: "harvey", name: "Harvey"}
+  - {slug: "elevenlabs", name: "ElevenLabs"}
+  - {slug: "spotdraft", name: "SpotDraft"}
+  - {slug: "deepgram", name: "Deepgram"}
+  - {slug: "sardine", name: "Sardine"}
+  - {slug: "clickhouse", name: "ClickHouse"}
+  - {slug: "cerebras", name: "Cerebras"}
+  - {slug: "anyscale", name: "Anyscale"}
+  - {slug: "temporal", name: "Temporal"}
+  - {slug: "writer", name: "Writer"}
+
+smartrecruiters:
+  - {slug: "PHONEPELIMITED", name: "PhonePe"}
+  - {slug: "swiggy", name: "Swiggy"}
+  - {slug: "servicenow", name: "ServiceNow"}
+  - {slug: "nielseniq", name: "NielsenIQ"}
+  - {slug: "experian", name: "Experian"}
+  - {slug: "freshworks", name: "Freshworks"}
+  - {slug: "grab", name: "Grab"}
+  - {slug: "ixigo", name: "ixigo"}
+  - {slug: "unacademy", name: "Unacademy"}
+
+workable: []   # none seeded yet; Workable rate-limits hard (HTTP 429), keep this list short
+
+rippling:
+  - {slug: "rippling", name: "Rippling"}
+
+workday:   # CXS JSON; host/tenant/site come from the careers URL https://<host>/en-US/<site>
+  - {name: "Mastercard", host: "mastercard.wd1.myworkdayjobs.com", tenant: "mastercard", site: "CorporateCareers"}
+  - {name: "Micron", host: "micron.wd1.myworkdayjobs.com", tenant: "micron", site: "External"}
+  - {name: "Salesforce", host: "salesforce.wd12.myworkdayjobs.com", tenant: "salesforce", site: "External_Career_Site"}
+  - {name: "NVIDIA", host: "nvidia.wd5.myworkdayjobs.com", tenant: "nvidia", site: "NVIDIAExternalCareerSite"}
+  - {name: "Intel", host: "intel.wd1.myworkdayjobs.com", tenant: "intel", site: "External"}
+  - {name: "HPE", host: "hpe.wd5.myworkdayjobs.com", tenant: "hpe", site: "Jobsathpe"}
+  - {name: "Target", host: "target.wd5.myworkdayjobs.com", tenant: "target", site: "targetcareers"}
+  - {name: "Wells Fargo", host: "wf.wd1.myworkdayjobs.com", tenant: "wf", site: "WellsFargoJobs"}
+  - {name: "Motorola Solutions", host: "motorolasolutions.wd5.myworkdayjobs.com", tenant: "motorolasolutions", site: "Careers"}
+  - {name: "CrowdStrike", host: "crowdstrike.wd5.myworkdayjobs.com", tenant: "crowdstrike", site: "crowdstrikecareers"}
+  - {name: "eBay", host: "ebay.wd5.myworkdayjobs.com", tenant: "ebay", site: "apply"}
+  - {name: "Morgan Stanley", host: "ms.wd5.myworkdayjobs.com", tenant: "ms", site: "External"}
+  - {name: "Thomson Reuters", host: "thomsonreuters.wd5.myworkdayjobs.com", tenant: "thomsonreuters", site: "External_Career_Site"}
+  - {name: "State Street", host: "statestreet.wd1.myworkdayjobs.com", tenant: "statestreet", site: "Global"}
+  - {name: "Analog Devices", host: "analogdevices.wd1.myworkdayjobs.com", tenant: "analogdevices", site: "External"}
+  - {name: "KLA", host: "kla.wd1.myworkdayjobs.com", tenant: "kla", site: "Search"}
+  - {name: "athenahealth", host: "athenahealth.wd1.myworkdayjobs.com", tenant: "athenahealth", site: "External"}
+  - {name: "Citi", host: "citi.wd5.myworkdayjobs.com", tenant: "citi", site: "2"}
+  - {name: "Visa", host: "visa.wd5.myworkdayjobs.com", tenant: "visa", site: "Visa"}
+  - {name: "Nike", host: "nike.wd1.myworkdayjobs.com", tenant: "nike", site: "nke"}
+  - {name: "BlackRock", host: "blackrock.wd1.myworkdayjobs.com", tenant: "blackrock", site: "BlackRock_Professional"}
+  - {name: "Adobe", host: "adobe.wd5.myworkdayjobs.com", tenant: "adobe", site: "external_experienced"}
+  - {name: "Amgen", host: "amgen.wd1.myworkdayjobs.com", tenant: "amgen", site: "Careers"}
+
+amazon: true   # amazon.jobs public search.json; country from amazon_country in the filter config
+
+# Eightfold portals: the search API only answers inside a browser session, so these use Playwright.
+eightfold:
+  - {name: "Microsoft", base: "https://apply.careers.microsoft.com", domain: "microsoft.com"}
+  - {name: "Qualcomm", base: "https://careers.qualcomm.com", domain: "qualcomm.com"}
+  - {name: "PayPal", base: "https://paypal.eightfold.ai", domain: "paypal.com"}

@@ -45,8 +45,11 @@ All optional; the agent checks what's installed and adapts.
 | `tectonic` / `pdflatex` / `typst` | LaTeX/Typst resumes | HTML printed to PDF via headless browser |
 | `pdftotext` | checking a resume extracts cleanly for ATS parsers | a Python PDF library |
 | `pdfinfo`, `pdftoppm` | verifying page count and rendering a visual preview of each built resume | open the PDF and look |
+| Python 3.9+ with a virtualenv | the job radar (`scripts/job_radar/`: `requests`, `pyyaml`, optionally `playwright`) | search feeds one by one via web fetch |
 
 On a Mac: `brew install poppler tectonic` covers the PDF tools and LaTeX.
+
+The job radar keeps its packages in its own virtualenv, so system Python isn't touched; setup and filters are in [scripts/job_radar/README.md](../scripts/job_radar/README.md).
 
 ## Verifying the setup
 

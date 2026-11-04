@@ -29,7 +29,7 @@ Defaults are in skills/job-search ("Filters"); write any of their own here. Read
 - Companies or kinds of roles to skip: (always includes the current employer)
 
 ## Money and timing
-- Current pay: (their format, e.g. "$140k base" or "12 LPA fixed"; also the digits-only answer for numeric fields, rounded down if decimals are rejected)
+- Current pay: (their format, e.g. "$140k base" or "18 lakh fixed"; also the digits-only answer for numeric fields, rounded down if decimals are rejected)
 - Expected pay: (a range for text fields; one number for numeric-only fields)
 - Notice period: (their standard phrasing, e.g. "30 days from written offer confirmation")
 - Earliest joining:

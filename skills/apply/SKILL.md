@@ -26,7 +26,8 @@ Even with submitting handed over, some forms end at a CAPTCHA. You never solve t
   - under the per-company limit in `me/permissions.md`, if they set one;
   - the portal's own cap on applications per candidate, if any (check the ledger for recent applications there).
 - **Easy Apply and one-click applies** (LinkedIn Easy Apply, job boards' quick-apply) are convenient but opaque: the user never sees what the company receives, and recruiters often weigh them less. When the same role is open on the company's own portal or a direct form, prefer that — or do both, if the user has chosen a double-apply rule in `me/permissions.md`. One-click applies on job boards send the board's **profile resume**, not today's tailored one: check what's on the profile first, and changing it is an account change that needs the user's OK.
-- **Volume** is up to the user. Recommend tailored applications to good fits over mass applications to weak ones: recruiters notice the second kind.
+- **Volume** is up to the user. Recommend tailored applications to good fits over mass applications to weak ones: recruiters notice the second kind. If they turn on volume mode in `me/permissions.md`, apply to every role that passes the hard filters, reusing a reviewed resume below their tailoring line; the review and the Never rules still hold.
+- **Same day for strong fits.** Postings close fast, sometimes within a day or two of appearing. Don't let a strong fit sit in the queue overnight, and recheck it's still open right before submitting.
 
 ## Preparing
 
@@ -42,7 +43,7 @@ Set the job to "preparing".
 - Fill every field from the answers above. Free-text answers are short and plain, in the JD's terms; oddly specific detail reads as AI-written. Numbers only in numeric fields.
 - Upload the job's resume, then check it's the file attached and not an older one.
 - Check every field after setting it. Autofill and resume parsing often get names, dates and locations wrong; prefilled "saved answers" from past applications can be stale or overstated — re-check every number against `me/master_resume.md`.
-- Tick required terms, privacy and accuracy boxes only. Leave marketing, newsletter, SMS and job-alert opt-ins unticked, and "follow this company" boxes too, unless the user wants them. Leave voluntary demographic (EEO) questions blank or "prefer not to say", per the profile.
+- Tick required terms and privacy boxes only. Leave marketing, newsletter, SMS, talent-community and job-alert opt-ins unticked, and "follow this company" boxes too, unless the user wants them. "Information is true" attestations and typed-name signatures follow "Consents and attestations" in `me/permissions.md`: left for the user by default, and even when handed over, only on a form where every answer came from the user's own facts. Leave voluntary demographic (EEO) questions blank or "prefer not to say", per the profile.
 - Quirks of specific portals: [playbooks/application-forms.md](../../playbooks/application-forms.md). Add new ones you learn.
 
 ## Screener questions

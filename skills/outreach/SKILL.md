@@ -75,7 +75,7 @@ These show the shape; don't copy the wording.
 
 ## Email outreach
 
-Cold email reaches people who don't check LinkedIn, and it's worth offering once LinkedIn outreach is working. It's off until the user turns it on; once on, [cold-email](../cold-email/SKILL.md) covers finding postings that name an address and the sending rules. Finding addresses is the hard part: use only work emails that are published (a team page, a talk, a commit) or shown by an email-finder tool the user installs for that. Don't guess addresses: guesses bounce, and bounces get the user's email flagged as spam. Use the same shapes as messages, one email per person, and follow up at most once or twice in the same thread.
+Cold email reaches people who don't check LinkedIn, and it's worth offering once LinkedIn outreach is working. It's off until the user turns it on; once on, [cold-email](../cold-email/SKILL.md) covers finding postings that name an address and the sending rules. Finding addresses is the hard part: use only work emails that are published (a team page, a talk, a commit) or shown by an email-finder tool the user installs for that. Don't guess addresses: guesses bounce, and bounces get the user's email flagged as spam. (If the user allows derived work emails in `me/permissions.md`, the evidence rules in cold-email apply.) Use the same shapes as messages, one email per person, and follow up at most once or twice in the same thread.
 
 ## Records and reporting
 

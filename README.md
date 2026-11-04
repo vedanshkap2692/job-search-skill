@@ -7,7 +7,7 @@ Built on [mindadeepam/job-search-assistant](https://github.com/mindadeepam/job-s
 ## What this is
 
 A set of markdown instructions, plus a few small files. Give it to an AI agent that can work on your computer (Claude Code, Codex, Cursor, Gemini CLI or similar), and it becomes your job-search assistant. It can:
-- find open roles that fit you — reading the company's real posting, not the repost — and score each one;
+- find open roles that fit you — reading the company's real posting, not the repost — and score each one, including an optional radar that sweeps about 120 companies' public job feeds in a few minutes;
 - build a bank of everything you can claim, from your resumes, LinkedIn, GitHub repos, documents or a voice recording, and turn it into a resume tailored to each job;
 - fill in applications across Workday, Greenhouse, Ashby, Rippling, BambooHR, LinkedIn Easy Apply, Naukri and more, with every field verified before submit;
 - run an independent blind review on every resume and application before it goes out;
@@ -51,7 +51,7 @@ Prefer to do it by hand? Make your own copy with "Use this template" (keep it **
 
 - An agent that can read files and run commands: Claude Code, Codex, Cursor, Gemini CLI or similar.
 - `sqlite3` or Python 3 (most Macs and Linux machines have both).
-- Optional, set up with the agent's help ([docs/SETUP.md](docs/SETUP.md)): a browser it can control, an email connection, scheduled tasks, LaTeX for typeset resumes.
+- Optional, set up with the agent's help ([docs/SETUP.md](docs/SETUP.md)): a browser it can control, an email connection, scheduled tasks, LaTeX for typeset resumes, and a Python virtualenv for the job radar.
 - A plan with room for long runs. Searching, tailoring, reviewing and outreach use a fair amount of your agent's usage.
 
 ---
@@ -85,6 +85,8 @@ skills/         one folder per job:
   dashboard/      the page that shows what needs you
   routines/       scheduled runs
 playbooks/      field notes: LinkedIn, application forms by ATS, browsers, email, scheduled runs, job sources
+scripts/
+  job_radar/      optional scanner for public company job feeds, with your filters in me/radar.yaml
 me/templates/   blank templates for your profile, fact bank, permissions and style rules
 data/           the ledger schema (the ledger and log themselves stay local)
 me/             your profile, resume bank, feedback, resumes (local only, gitignored)

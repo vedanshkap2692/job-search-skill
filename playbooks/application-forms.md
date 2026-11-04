@@ -4,10 +4,11 @@ Field notes on applicant tracking systems. Add what you learn.
 
 ## Everywhere
 - Check every field after setting it. Autofill from the resume often gets names, dates and locations wrong.
-- Numbers only in numeric fields ("25", not "25 LPA" or "$25k"). A field that rejects decimals gets the number rounded **down**.
+- Numbers only in numeric fields ("25", not "25 lakh" or "$25k"). A field that rejects decimals gets the number rounded **down**.
 - After uploading the resume, check that the attached file is this job's resume, not an older one.
 - Long textareas reflow the page: a radio or dropdown you set later can land on the wrong option when the layout shifted mid-click. After filling any long answer, re-verify every radio and dropdown below it, by reading the page or zooming a screenshot — not from memory.
-- Tick required terms, privacy and accuracy boxes only. Leave marketing, newsletter, SMS-consent and job-alert opt-ins unticked. Voluntary demographic (EEO) sections stay blank or "prefer not to say" unless the user says otherwise.
+- Tick required terms and privacy boxes only. Leave marketing, newsletter, SMS-consent, talent-community and job-alert opt-ins unticked. Voluntary demographic (EEO) sections stay blank or "prefer not to say" unless the user says otherwise.
+- "I certify this information is true" attestations and typed-name signatures are the user's by default. Tick or type them yourself only if `me/permissions.md` hands them over, and then only when every answer on the form came from `me/master_resume.md` and `me/profile.md`. CAPTCHAs, one-time codes, passwords and account creation stay with the user regardless.
 - Decline any "save your profile / create an account / 1-click apply next time" offer unless the user wants it.
 - Submitted means you saw the confirmation page or message.
 
@@ -27,7 +28,7 @@ Field notes on applicant tracking systems. Add what you learn.
 - Plain text fields and textareas set programmatically were accepted fine; it's specifically email + toggles that need real input.
 - Two upload zones can look identical: the top one is "Autofill from resume" (a parser), the lower one labeled Resume* is the real attachment. Upload to the labeled one; skip the parser and fill fields yourself.
 - "How did you learn about us" dropdowns have fixed options; "Company Website" fits applications made from their own Ashby board.
-- Some text-looking fields are NUMBER inputs (spinner arrows at the right edge, often salary fields). They mangle text ("12.5 LPA" → "12.5e") and arrow keys INCREMENT the value while focused — a keyboard scroll can silently change the number. Type digits only, click a neutral area to blur, and re-screenshot the field right before submit.
+- Some text-looking fields are NUMBER inputs (spinner arrows at the right edge, often salary fields). They mangle text ("140k (fixed)" → "140e") and arrow keys INCREMENT the value while focused — a keyboard scroll can silently change the number. Type digits only, click a neutral area to blur, and re-screenshot the field right before submit.
 - Some companies cap applications per candidate (for example two in 60 days); check the ledger for recent applications there first.
 
 ## Rippling (ats.rippling.com)
@@ -64,8 +65,26 @@ Field notes on applicant tracking systems. Add what you learn.
 ## Lever, Phenom, Freshteam, Oracle
 - Setting text fields directly usually works. Oracle-based pages scroll inside a container: find the element and scroll it into view rather than scrolling the page.
 
+## SmartRecruiters
+- The one-click apply page keeps its resume file input inside a shadow DOM that automation tools can't reach (verified November 2026). Fill what you can, then queue the resume upload and Submit for the user, with the tab left open.
+
+## Portals that reuse a saved profile (Google Careers, Workday, Naukri and similar)
+- A saved profile can carry stale content into every new application without showing it on the form steps: an old cover letter written for a different role, with claims that aren't in the fact bank, appeared only on the final Review page. Read the whole Review page before submitting, and clear or replace any cover letter or notes field you didn't write for this job.
+- Re-uploading a resume re-runs the parser, which can append duplicates (repeated phones and emails, a made-up extra degree from a fellowship or certificate line, the wrong school). Re-verify every section after any upload.
+- Google Careers caps applications per candidate (three in 30 days, verified late 2026): spend them on the best fits.
+
+## Google Forms as apply links
+- A Google Form opens under the browser's default Google account, which may be a work account, and forms with a file upload record the signed-in account's email. Open the form under the application account (`https://docs.google.com/forms/u/<n>/d/e/<id>/viewform`, where `<n>` is that account's index in the browser) and check the "<email> Switch account" line shows the application address before typing anything.
+- File upload opens the Google Picker in an iframe that upload tools usually can't target. A method that worked: add a temporary `<input type=file>` to the top document, upload the PDF into it with the file-upload tool, then in JS copy the file into the picker iframe's `input[type=file]` using the iframe window's own `DataTransfer` and `File`, and dispatch `change`. The file chip appears under the question. Remove the temporary input. The file also lands in that account's Drive.
+- Some text fields are validated as numbers ("Must be a number between 0 and 300") only on Submit. Use plain numbers for experience and pay.
+
+## Keka careers pages (`<company>.keka.com`)
+- No account needed. The resume upload autofills experience and education and gets them wrong (invented company names, wrong titles, "currently working" unticked). Fix every ExperienceDetails[n] and EducationDetails[n] field. Setting values with the native value setter plus input, change and blur events works (they're Angular forms); re-read every value afterwards.
+- Usually required: gender, date of birth (a datepicker: set the month and year selects, then click the day), current and expected pay (auto-formatted), availability in days, current location, LinkedIn URL, "how did you learn about us".
+- Ends in a text CAPTCHA: fill and verify everything, then hand over for the CAPTCHA and the Apply click.
+
 ## Upload buttons with no file input
-Some forms (LinkedIn Easy Apply, SmartRecruiters) show only an "Upload" button. One trick that worked with a Chrome automation extension: patch `HTMLInputElement.prototype.click` so the hidden file input gets attached to the page instead of opening the native file picker, click the button, then upload into the captured input and restore the patch. With other tools, use their own file-upload method. Never trigger the native OS file dialog — it blocks the automation.
+Some forms (LinkedIn Easy Apply, some SmartRecruiters pages) show only an "Upload" button. One trick that worked with a Chrome automation extension: patch `HTMLInputElement.prototype.click` so the hidden file input gets attached to the page instead of opening the native file picker, click the button, then upload into the captured input and restore the patch. With other tools, use their own file-upload method. Never trigger the native OS file dialog — it blocks the automation.
 
 ## Background tabs
 Forms in a background tab may not react until the tab is brought forward or screenshotted. Timers (`setTimeout`) in page scripts can hang there, so don't wait on them.

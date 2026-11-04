@@ -99,6 +99,7 @@ Offer these one or two at a time, in whatever order suits them:
 - **The rest of the profile:** pay and timing, standard form answers, and which voluntary questions to answer, before the first applications.
 - **Their voice:** a message they've sent and liked, for `me/style.md`.
 - **More schedules:** the evening inbox run, extra job searches, the review every week or two.
+- **The job radar,** if they're targeting companies that post on public job boards (Greenhouse, Lever, Ashby, Workday and similar): set up its virtualenv, write `me/radar.yaml` from their profile's targets and filters, add the companies they care most about to `companies.yaml`, and run it once with them ([scripts/job_radar](../../scripts/job_radar/README.md)).
 - **Phone access:** how to see the dashboard and the needs-you queue away from the laptop on their platform.
 - **Another dashboard layout,** if the default isn't working for them.
 - **Interview prep,** as soon as an interview turns up.

@@ -10,7 +10,7 @@ The goal is a steady flow of open, well-matched roles in the ledger, each with e
 ## Each run
 
 1. **Know what's there.** Read the ledger's job URLs, and company + title + location, so nothing is added twice.
-2. **Search broadly, and differently each run.** Rotate titles × locations × sources so runs don't keep finding the same jobs. Sources are in [playbooks/job-sources.md](../../playbooks/job-sources.md); ask the user which sites matter in their market. Use the browser for LinkedIn and sites that need it, and web search or public job-board feeds for the rest.
+2. **Search broadly, and differently each run.** Rotate titles × locations × sources so runs don't keep finding the same jobs. Sources are in [playbooks/job-sources.md](../../playbooks/job-sources.md); ask the user which sites matter in their market. Use the browser for LinkedIn and sites that need it, and web search or public job-board feeds for the rest. If the job radar is set up ([scripts/job_radar](../../scripts/job_radar/README.md)), run it first: it sweeps a hundred-odd company feeds in a few minutes and leaves you a ranked list to vet. Its keeps are candidates, not ledger entries: each still goes through steps 3–6.
 3. **Open each posting and check it's open:**
    - no "no longer accepting applications", no 404, no redirect to the careers page;
    - posted within about 30 days (prefer the last 14).
@@ -52,6 +52,8 @@ Defaults, which the user can change under "Filters" in `me/profile.md`. Apply th
 - **Keep the weaker fits:** log every in-scope role, with a lower score rather than dropping it, unless the user prefers a tight list. When many jobs are waiting unreviewed, add only strong fits until the backlog comes down.
 
 Log every skip with its reason in `data/log.md`, so the user can widen a filter that's costing them roles.
+
+**The radar's copy of the filters** lives in `me/radar.yaml` (start from `scripts/job_radar/filters.example.yaml`). When the user changes Targets or Filters in `me/profile.md`, update it to match: locations, role families, the years line, employers to skip (always their current employer) and the fit terms from `me/master_resume.md`.
 
 ## Links the user pastes
 

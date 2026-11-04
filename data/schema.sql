@@ -45,9 +45,10 @@ CREATE TABLE IF NOT EXISTS people (
   relation      TEXT,                   -- connection | alum | ex_colleague | team | manager | recruiter
   job_id        INTEGER REFERENCES jobs(id),  -- the job they were found for
   status        TEXT NOT NULL DEFAULT 'found',
-                -- found | invited | connected | messaged | replied | referred | no_reply | skipped
+                -- found | invited | connected | messaged | replied | referred | no_reply | skipped | bounced
   connected_at  TEXT,
-  email         TEXT,                   -- work email only: published, or shown by a tool the user installed
+  email         TEXT,                   -- work email only: published, shown by a tool the user installed,
+                                        -- or derived from an evidenced pattern if permissions allow (evidence in notes)
   notes         TEXT,
   updated_at    TEXT NOT NULL DEFAULT (datetime('now'))
 );
@@ -60,7 +61,7 @@ CREATE TABLE IF NOT EXISTS messages (
   direction     TEXT NOT NULL,          -- out | in
   kind          TEXT,                   -- note | message | follow_up | reply | accept
   body          TEXT,
-  status        TEXT NOT NULL,          -- drafted | sent | received
+  status        TEXT NOT NULL,          -- drafted | scheduled | sent | received | bounced
   at            TEXT NOT NULL DEFAULT (datetime('now')),
   follow_up_due TEXT
 );
